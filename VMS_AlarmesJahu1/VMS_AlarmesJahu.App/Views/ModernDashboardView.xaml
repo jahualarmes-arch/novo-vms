@@ -1,0 +1,181 @@
+<UserControl x:Class="VMS_AlarmesJahu.App.Views.ModernDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             Background="{StaticResource SimNextBackgroundBrush}">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                
+                <!-- Cabeçalho -->
+                <TextBlock Style="{StaticResource Heading1}" Foreground="{StaticResource SimNextPrimaryBrush}">
+                    📊 Dashboard
+                </TextBlock>
+
+                <!-- KPIs Row 1 -->
+                <Grid ColumnSpacing="16" Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- KPI: Dispositivos Conectados -->
+                    <Border Grid.Column="0" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Body2}" Text="CONECTADOS"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Heading2}" 
+                                       Text="{Binding ConnectedDevices, StringFormat='{0}'}"
+                                       Foreground="{StaticResource SimNextSuccessBrush}"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Grid.Row="2" Style="{StaticResource Body2}" 
+                                       Text="{Binding TotalDevices, StringFormat='de {0} total'}"
+                                       Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- KPI: Canais Ativos -->
+                    <Border Grid.Column="1" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Body2}" Text="CANAIS ATIVOS"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Heading2}" 
+                                       Text="{Binding ActiveChannels, StringFormat='{0}'}"
+                                       Foreground="{StaticResource SimNextInfoBrush}"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Grid.Row="2" Style="{StaticResource Body2}" 
+                                       Text="Em streaming ao vivo"
+                                       Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- KPI: Eventos Hoje -->
+                    <Border Grid.Column="2" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Body2}" Text="EVENTOS HOJE"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Heading2}" 
+                                       Text="{Binding EventsToday, StringFormat='{0}'}"
+                                       Foreground="{StaticResource SimNextWarningBrush}"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Grid.Row="2" Style="{StaticResource Body2}" 
+                                       Text="Detectados pela IA"
+                                       Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- KPI: Uptime -->
+                    <Border Grid.Column="3" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Body2}" Text="UPTIME"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Heading2}" 
+                                       Text="{Binding SystemUptime, StringFormat='{0:F1}%'}"
+                                       Foreground="{StaticResource SimNextSuccessBrush}"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Grid.Row="2" Style="{StaticResource Body2}" 
+                                       Text="Últimos 7 dias"
+                                       Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Gráficos Row -->
+                <Grid ColumnSpacing="16" Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Gráfico: Eventos por Dia -->
+                    <Border Grid.Column="0" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="300"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Heading3}" 
+                                       Text="📈 Eventos (7 dias)"/>
+                            
+                            <lvc:CartesianChart Grid.Row="1" 
+                                                Series="{Binding EventsChartSeries}"
+                                                XAxes="{Binding EventsChartXAxes}"
+                                                YAxes="{Binding EventsChartYAxes}"
+                                                LegendPosition="Top"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Gráfico: Status Dispositivos -->
+                    <Border Grid.Column="1" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="300"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Style="{StaticResource Heading3}" 
+                                       Text="🎯 Status Dispositivos"/>
+                            
+                            <lvc:PieChart Grid.Row="1" 
+                                          Series="{Binding DeviceStatusSeries}"
+                                          LegendPosition="Right"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Eventos Recentes -->
+                <Border Style="{StaticResource Card}" Margin="0,0,0,24">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Style="{StaticResource Heading3}" 
+                                   Text="🔔 Eventos Recentes"/>
+
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding RecentEvents}"
+                                  AutoGenerateColumns="False"
+                                  RowHeight="40"
+                                  Margin="0,16,0,0"
+                                  Background="{StaticResource SimNextSurfaceBrush}"
+                                  Foreground="{StaticResource SimNextTextBrush}"
+                                  BorderBrush="{StaticResource SimNextBorderBrush}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Dispositivo" Binding="{Binding DeviceName}" Width="*"/>
+                                <DataGridTextColumn Header="Canal" Binding="{Binding Channel}" Width="60"/>
+                                <DataGridTextColumn Header="Tipo" Binding="{Binding EventType}" Width="100"/>
+                                <DataGridTextColumn Header="Confiança" Binding="{Binding Confidence, StringFormat='P0'}" Width="100"/>
+                                <DataGridTextColumn Header="Data/Hora" Binding="{Binding Timestamp, StringFormat='dd/MM/yyyy HH:mm:ss'}" Width="180"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,88 @@
+<UserControl x:Class="VMS_AlarmesJahu.App.Views.MosaicView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar Principal -->
+        <Border Grid.Row="0" Background="{DynamicResource Panel}" Padding="12,8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Linha 1: Layout e DVRs -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Text="🖥️ Mosaico" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    
+                    <Separator Margin="0,0,12,0"/>
+                    
+                    <!-- Layout -->
+                    <TextBlock Text="Layout:" VerticalAlignment="Center" Margin="0,0,6,0" Opacity="0.8"/>
+                    <ComboBox x:Name="CbLayout" Width="70" SelectedIndex="1" VerticalAlignment="Center">
+                        <ComboBoxItem Content="1x1" Tag="1"/>
+                        <ComboBoxItem Content="2x2" Tag="2"/>
+                        <ComboBoxItem Content="3x3" Tag="3"/>
+                        <ComboBoxItem Content="4x4" Tag="4"/>
+                        <ComboBoxItem Content="5x5" Tag="5"/>
+                        <ComboBoxItem Content="6x6" Tag="6"/>
+                        <ComboBoxItem Content="7x7" Tag="7"/>
+                        <ComboBoxItem Content="8x8" Tag="8"/>
+                    </ComboBox>
+
+                    <Separator Margin="12,0"/>
+
+                    <!-- Controles rápidos -->
+                    <Button x:Name="BtnStartAll" Content="▶ Iniciar" Padding="10,6" Margin="0,0,6,0" ToolTip="Iniciar todas as câmeras do DVR selecionado"/>
+                    <Button x:Name="BtnStopAll" Content="⏹ Parar" Padding="10,6" Margin="0,0,6,0" ToolTip="Parar todas as câmeras"/>
+                    <Button x:Name="BtnClearAll" Content="🗑️ Limpar" Padding="10,6" ToolTip="Limpar todo o mosaico"/>
+                    
+                    <Separator Margin="12,0"/>
+                    
+                    <!-- ✅ NOVO: Botão Fullscreen -->
+                    <Button x:Name="BtnFullscreen" Content="⛶ Fullscreen" Padding="12,6" Margin="0,0,6,0" 
+                            ToolTip="Tela cheia - Somente câmeras (F11 ou ESC para sair)"
+                            Background="#2196F3" Foreground="White" FontWeight="Bold"/>
+
+                    <Separator Margin="12,0"/>
+
+                    <!-- Multi-Monitor -->
+                    <TextBlock Text="Monitor:" VerticalAlignment="Center" Margin="0,0,6,0" Opacity="0.8"/>
+                    <ComboBox x:Name="CbMonitor" Width="180" VerticalAlignment="Center" ToolTip="Selecione o monitor para abrir nova janela"/>
+                    <Button x:Name="BtnNewWindow" Content="➕ Nova Janela" Padding="10,6" Margin="6,0,0,0" ToolTip="Abrir mosaico em outro monitor"/>
+                </StackPanel>
+
+                <!-- Linha 2: Adicionar câmeras de múltiplos DVRs -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0">
+                    <TextBlock Text="Adicionar:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                    
+                    <TextBlock Text="DVR:" VerticalAlignment="Center" Margin="0,0,6,0" Opacity="0.8"/>
+                    <ComboBox x:Name="CbDevice" Width="150" DisplayMemberPath="Name" VerticalAlignment="Center"/>
+                    
+                    <TextBlock Text="Canal:" VerticalAlignment="Center" Margin="12,0,6,0" Opacity="0.8"/>
+                    <ComboBox x:Name="CbChannel" Width="80" VerticalAlignment="Center"/>
+                    
+                    <Button x:Name="BtnAddCamera" Content="➕ Add Câmera" Padding="10,6" Margin="8,0,0,0" ToolTip="Adicionar câmera na próxima célula vazia"/>
+                    <Button x:Name="BtnAddAllChannels" Content="📷 Add Todos Canais" Padding="10,6" Margin="6,0,0,0" ToolTip="Adicionar todos os canais deste DVR"/>
+
+                    <Separator Margin="16,0"/>
+
+                    <CheckBox x:Name="ChkShowRules" Content="📐 Mostrar Regras" IsChecked="True" VerticalAlignment="Center"/>
+                    
+                    <Separator Margin="16,0"/>
+
+                    <Button x:Name="BtnTestAlarm" Content="🔔 Testar Alarme" Padding="10,6"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Grid de Vídeos -->
+        <Border Grid.Row="1" Background="#0F141B" Padding="4">
+            <UniformGrid x:Name="VideoGrid" Rows="2" Columns="2"/>
+        </Border>
+    </Grid>
+</UserControl>

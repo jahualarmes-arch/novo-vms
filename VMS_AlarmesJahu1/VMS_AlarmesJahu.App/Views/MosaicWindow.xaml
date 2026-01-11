@@ -1,0 +1,13 @@
+<Window x:Class="VMS_AlarmesJahu.App.Views.MosaicWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:VMS_AlarmesJahu.App.Views"
+        Title="Mosaico" Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Background="#111">
+
+    <!-- Janela separada para mosaico em outro monitor (estilo SmartPSS: múltiplas janelas) -->
+    <Grid>
+        <local:MosaicView x:Name="Mosaic" />
+    </Grid>
+</Window>

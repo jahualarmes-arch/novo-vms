@@ -1,0 +1,101 @@
+<UserControl x:Class="VMS_AlarmesJahu.App.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20" MaxWidth="800">
+            <TextBlock Text="⚙️ Configurações" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <!-- Servidor IA -->
+            <Border Style="{DynamicResource CardBorder}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="🧠 Servidor de IA" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    
+                    <TextBlock Text="URL do Servidor" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtIaUrl" Height="36" Margin="0,0,0,12"/>
+                    
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Intervalo de Análise (ms)" Margin="0,0,0,4"/>
+                            <TextBox x:Name="TxtInterval" Height="36"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Timeout (ms)" Margin="0,0,0,4"/>
+                            <TextBox x:Name="TxtTimeout" Height="36"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Button x:Name="BtnTestIa" Content="🔗 Testar Conexão" Padding="12,6" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Alarmes -->
+            <Border Style="{DynamicResource CardBorder}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="🔔 Alarmes" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Duração Fullscreen (seg)" Margin="0,0,0,4"/>
+                            <TextBox x:Name="TxtFullscreenDuration" Height="36"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Número de Bipes" Margin="0,0,0,4"/>
+                            <TextBox x:Name="TxtBeepCount" Height="36"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <CheckBox x:Name="ChkSoundEnabled" Content="Habilitar Som de Alarme" Margin="0,0,0,12"/>
+                    
+                    <TextBlock Text="Som Customizado (opcional)" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtCustomSound" Height="36" IsReadOnly="True"/>
+                        <Button Grid.Column="1" x:Name="BtnBrowseSound" Content="📁" Padding="12,6" Margin="8,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Telegram -->
+            <Border Style="{DynamicResource CardBorder}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="📱 Notificações Telegram" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    
+                    <CheckBox x:Name="ChkTelegramEnabled" Content="Habilitar Telegram" Margin="0,0,0,12"/>
+                    
+                    <TextBlock Text="Bot Token" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtTelegramToken" Height="36" Margin="0,0,0,12"/>
+                    
+                    <TextBlock Text="Chat ID" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtTelegramChat" Height="36" Margin="0,0,0,12"/>
+                    
+                    <Button x:Name="BtnTestTelegram" Content="📤 Enviar Teste" Padding="12,6" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Armazenamento -->
+            <Border Style="{DynamicResource CardBorder}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="💾 Armazenamento" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    
+                    <TextBlock Text="Manter eventos por (dias)" Margin="0,0,0,4"/>
+                    <TextBox x:Name="TxtMaxEventAge" Height="36" Width="100" HorizontalAlignment="Left" Margin="0,0,0,12"/>
+                    
+                    <Button x:Name="BtnCleanOld" Content="🗑️ Limpar Dados Antigos" Padding="12,6" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <Button x:Name="BtnSave" Content="💾 Salvar Configurações" Height="44" FontSize="16"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,214 @@
+<UserControl x:Class="VMS_AlarmesJahu.App.Views.ModernDevicesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource SimNextBackgroundBrush}">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho com Busca -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Style="{StaticResource Heading1}" 
+                       Foreground="{StaticResource SimNextPrimaryBrush}">
+                🖥️ Dispositivos
+            </TextBlock>
+
+            <!-- Botões de Ação -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Button Style="{StaticResource AccentButton}" Command="{Binding NewDeviceCommand}">
+                    ➕ Novo
+                </Button>
+                <Button Style="{StaticResource OutlineButton}" Command="{Binding RefreshCommand}">
+                    🔄 Atualizar
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Barra de Busca e Filtros -->
+        <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,20">
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Busca por Nome/Serial -->
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Style="{StaticResource Body2}" 
+                               Foreground="{StaticResource SimNextTextSecondaryBrush}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,8,0">
+                        🔍
+                    </TextBlock>
+
+                    <TextBox Grid.Column="1" 
+                             Foreground="{StaticResource SimNextTextBrush}"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="12,10"
+                             FontSize="14">
+                        <TextBox.Resources>
+                            <Style TargetType="TextBox">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="Buscar por nome ou serial..." Foreground="{StaticResource SimNextTextSecondaryBrush}"/>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+
+                <!-- Filtro: Tipo de Conexão -->
+                <ComboBox Grid.Column="1" 
+                          SelectedItem="{Binding SelectedConnectionType}"
+                          Foreground="{StaticResource SimNextTextBrush}">
+                    <ComboBoxItem>Todas</ComboBoxItem>
+                    <ComboBoxItem>IP Direto</ComboBoxItem>
+                    <ComboBoxItem>P2P Cloud</ComboBoxItem>
+                </ComboBox>
+
+                <!-- Filtro: Status -->
+                <ComboBox Grid.Column="2" 
+                          SelectedItem="{Binding SelectedStatus}"
+                          Foreground="{StaticResource SimNextTextBrush}">
+                    <ComboBoxItem>Todos</ComboBoxItem>
+                    <ComboBoxItem>Conectado</ComboBoxItem>
+                    <ComboBoxItem>Desconectado</ComboBoxItem>
+                    <ComboBoxItem>Erro</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <!-- Grid de Dispositivos (Cards) -->
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding FilteredDevices}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3" RowSpacing="16" ColumnSpacing="16"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource Card}" Name="DeviceCard">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header com Nome e Status Badge -->
+                            <Grid Grid.Row="0" ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Style="{StaticResource Heading3}" 
+                                           Text="{Binding Name}"
+                                           TextTrimming="CharacterEllipsis"/>
+
+                                <!-- Status Badge -->
+                                <Border Grid.Column="1" 
+                                        Style="{StaticResource BadgeSuccess}"
+                                        Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Background="#E8F5E9">
+                                    <TextBlock Text="● Conectado" Foreground="#2E7D32" FontSize="11" FontWeight="SemiBold"/>
+                                </Border>
+                                <Border Grid.Column="1" 
+                                        Style="{StaticResource BadgeWarning}"
+                                        Visibility="{Binding IsDisconnected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Background="#FFF3E0">
+                                    <TextBlock Text="● Desconectado" Foreground="#F57C00" FontSize="11" FontWeight="SemiBold"/>
+                                </Border>
+                                <Border Grid.Column="1" 
+                                        Style="{StaticResource BadgeError}"
+                                        Visibility="{Binding IsError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Background="#FFEBEE">
+                                    <TextBlock Text="● Erro" Foreground="#C62828" FontSize="11" FontWeight="SemiBold"/>
+                                </Border>
+                            </Grid>
+
+                            <!-- Info Line 1: Tipo e Canais -->
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12" Margin="0,12,0,0">
+                                <TextBlock Style="{StaticResource Body2}">
+                                    <Run Text="📡 "/>
+                                    <Run Text="{Binding ConnectionTypeLabel}"/>
+                                </TextBlock>
+                                <TextBlock Style="{StaticResource Body2}">
+                                    <Run Text="📹 "/>
+                                    <Run Text="{Binding ChannelCount, StringFormat='{0} canais'}"/>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Info Line 2: Serial/Host -->
+                            <TextBlock Grid.Row="2" Style="{StaticResource Body2}" Margin="0,8,0,0">
+                                <Run Text="{Binding ConnectionInfo}"/>
+                            </TextBlock>
+
+                            <!-- Info Line 3: Última Conexão -->
+                            <TextBlock Grid.Row="3" Style="{StaticResource Body2}" 
+                                       Foreground="{StaticResource SimNextTextMuted}"
+                                       Margin="0,8,0,0">
+                                <Run Text="⏱️ "/>
+                                <Run Text="{Binding LastConnectedText}"/>
+                            </TextBlock>
+
+                            <!-- Quick Actions -->
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8" Margin="0,16,0,0">
+                                <Button Style="{StaticResource {x:Type Button}}" 
+                                        Padding="12,6" FontSize="12"
+                                        Command="{Binding ConnectCommand}">
+                                    🔌 Conectar
+                                </Button>
+                                <Button Style="{StaticResource OutlineButton}" 
+                                        Padding="12,6" FontSize="12"
+                                        Command="{Binding EditCommand}">
+                                    ✏️ Editar
+                                </Button>
+                                <Button Style="{StaticResource OutlineButton}" 
+                                        Padding="12,6" FontSize="12"
+                                        Background="#FFEBEE"
+                                        Foreground="#C62828"
+                                        Command="{Binding DeleteCommand}">
+                                    🗑️
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Efeito Hover -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

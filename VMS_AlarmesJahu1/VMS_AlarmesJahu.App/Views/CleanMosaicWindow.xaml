@@ -1,0 +1,37 @@
+<Window x:Class="VMS_AlarmesJahu.App.Views.CleanMosaicWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VMS - Visualização" 
+        WindowStyle="None"
+        WindowState="Maximized"
+        Background="#0F141B"
+        AllowsTransparency="False"
+        ResizeMode="NoResize"
+        Topmost="False"
+        KeyDown="Window_KeyDown">
+    
+    <!-- Janela fullscreen limpa - estilo SmartPSS Lite
+         Mostra apenas o mosaico de câmeras sem nenhum elemento de interface
+         Pressione ESC para sair do fullscreen
+         Pressione F11 para alternar fullscreen
+         Pressione números 1-8 para mudar layout -->
+    
+    <Grid x:Name="MainGrid">
+        <!-- Grid de Vídeos - fundo escuro estilo SmartPSS -->
+        <Border Background="#0F141B" Padding="0">
+            <UniformGrid x:Name="VideoGrid" Rows="4" Columns="4"/>
+        </Border>
+        
+        <!-- Instrução sutil no canto (some após 3 segundos) -->
+        <Border x:Name="HintBorder" 
+                Background="#80000000" 
+                CornerRadius="4" 
+                Padding="12,6"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" 
+                Margin="20">
+            <TextBlock Text="ESC para sair • F11 fullscreen • 1-8 layout" 
+                       Foreground="#80FFFFFF" FontSize="11"/>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,315 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ========================================
+         TEMA SMARTPSS LITE (claro) - VMS Alarmes Jahu
+         Mantém chaves compatíveis com o tema antigo.
+         ======================================== -->
+
+    <!-- Cores Base -->
+    <Color x:Key="BgColor">#F5F6F8</Color>
+    <Color x:Key="PanelColor">#FFFFFFFF</Color>
+    <Color x:Key="CardColor">#FFFFFFFF</Color>
+    <Color x:Key="CardHoverColor">#FFF0F2F5</Color>
+    <Color x:Key="BorderColor">#FFD8DCE3</Color>
+
+    <!-- Brand -->
+    <Color x:Key="IntelbrasPrimaryColor">#FF0077CC</Color>
+    <Color x:Key="IntelbrasSecondaryColor">#FF0062B4</Color>
+    <Color x:Key="IntelbrasAccentColor">#FF00A8E8</Color>
+
+    <!-- Texto -->
+    <Color x:Key="FgPrimaryColor">#FF1F2328</Color>
+    <Color x:Key="FgSecondaryColor">#FF374151</Color>
+    <Color x:Key="FgMutedColor">#FF6B7280</Color>
+
+    <!-- Status -->
+    <Color x:Key="SuccessColor">#FF10B981</Color>
+    <Color x:Key="WarningColor">#FFF59E0B</Color>
+    <Color x:Key="DangerColor">#FFEF4444</Color>
+    <Color x:Key="InfoColor">#FF3B82F6</Color>
+
+    <!-- Gradientes -->
+    <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF0077CC" Offset="0"/>
+        <GradientStop Color="#FF0062B4" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="AccentGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF00A8E8" Offset="0"/>
+        <GradientStop Color="#FF0077CC" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="Bg" Color="{StaticResource BgColor}"/>
+    <SolidColorBrush x:Key="Panel" Color="{StaticResource PanelColor}"/>
+    <SolidColorBrush x:Key="Card" Color="{StaticResource CardColor}"/>
+    <SolidColorBrush x:Key="CardHover" Color="{StaticResource CardHoverColor}"/>
+    <SolidColorBrush x:Key="Border" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="Fg" Color="{StaticResource FgPrimaryColor}"/>
+    <SolidColorBrush x:Key="FgPrimary" Color="{StaticResource FgPrimaryColor}"/>
+    <SolidColorBrush x:Key="FgSecondary" Color="{StaticResource FgSecondaryColor}"/>
+    <SolidColorBrush x:Key="FgMuted" Color="{StaticResource FgMutedColor}"/>
+    <SolidColorBrush x:Key="Accent" Color="{StaticResource IntelbrasPrimaryColor}"/>
+    <SolidColorBrush x:Key="IntelbrasPrimary" Color="{StaticResource IntelbrasPrimaryColor}"/>
+    <SolidColorBrush x:Key="IntelbrasAccent" Color="{StaticResource IntelbrasAccentColor}"/>
+    <SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
+
+    <!-- Sombra leve -->
+    <DropShadowEffect x:Key="CardShadow" Color="#000000" BlurRadius="18" ShadowDepth="0" Opacity="0.12"/>
+    <DropShadowEffect x:Key="CardShadowHover" Color="#000000" BlurRadius="26" ShadowDepth="0" Opacity="0.18"/>
+
+    <!-- ========================================
+         CARDS
+         ======================================== -->
+
+    <Style x:Key="CardBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Card}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource CardHover}"/>
+                <Setter Property="Effect" Value="{StaticResource CardShadowHover}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatCard" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Card}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="18"/>
+        <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+    </Style>
+
+    <!-- ========================================
+         TOP TABS (SmartPSS-like)
+         ======================================== -->
+
+    <Style x:Key="TopTabBtn" TargetType="ToggleButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource FgSecondary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <Border x:Name="Underline" Height="2" Background="{StaticResource IntelbrasPrimary}" VerticalAlignment="Bottom" Opacity="0"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource IntelbrasPrimary}"/>
+                            <Setter TargetName="Underline" Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Botão primário compacto (barra superior) -->
+    <Style x:Key="SmallPrimaryBtn" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryGradient}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.92"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Tiles do Home -->
+    <Style x:Key="QuickTileBtn" TargetType="Button">
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="Height" Value="112"/>
+        <Setter Property="Background" Value="{StaticResource Card}"/>
+        <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="12" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource CardHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ========================================
+         BOTÕES E CONTROLES DEFAULT (compat)
+         ======================================== -->
+
+    <!-- Botão de Navegação (usado em outras views) -->
+    <Style x:Key="NavBtn" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource FgSecondary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="10" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource CardHover}"/>
+                            <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="Active">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryGradient}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Botão Primário (compat) -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryGradient}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="18,12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="10" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.93"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.86"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Botão padrão -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Card}"/>
+        <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource CardHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.55"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TextBox padrão -->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                        <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource IntelbrasPrimary}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ComboBox padrão -->
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource Card}"/>
+        <Setter Property="Foreground" Value="{StaticResource FgPrimary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+</ResourceDictionary>
